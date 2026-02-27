@@ -3,66 +3,64 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>MicroDSI · Laboratorio Simple</title>
+  <title>FitForge · Laboratorio</title>
   <link rel="stylesheet" href="assets/styles.css"/>
 </head>
 <body>
   <header class="topbar">
     <div class="row">
       <div class="brand">
-        <b>MicroDSI</b>
-        <span>Laboratorio de Procesos</span>
+        <b>FitForge</b>
+        <span>Constructor de Rutinas</span>
       </div>
       <nav class="nav">
         <a class="btn" href="index.html">Inicio</a>
-        <a class="btn" href="feed.html">Feed</a>
-        <a class="btn" href="pista.htm">Pistas</a>
+        <a class="btn" href="feed.html">Ejercicios</a>
+        <a class="btn" href="pista.htm">Evaluación</a>
       </nav>
     </div>
   </header>
 
   <main class="container">
     <section class="panel">
-      <h3>Laboratorio de Modelado</h3>
-      <p>
-        Escribe directamente en las cajas de texto de abajo. Cuando termines, pulsa el botón para generar tu documento exportable.
-      </p>
+      <h3>Diseña tu semana de entrenamiento</h3>
+      <p>Rellena los bloques para generar tu tabla en texto plano, lista para llevar en el móvil.</p>
     </section>
 
     <hr class="sep"/>
 
     <section class="formRow">
       <div class="panel">
-        <h3>1. Inventario (Nivel L1)</h3>
-        <label>Escribe 10–15 procesos (uno por línea)</label>
-        <textarea id="inv" placeholder="Ej: Gestionar incidencias&#10;Ej: Registrar alta de proveedor..."></textarea>
+        <h3>1. Calentamiento (Warm-up)</h3>
+        <label>Ejercicios de movilidad y activación</label>
+        <textarea id="inv" placeholder="Ej: 5 min de cinta&#10;Rotaciones articulares..."></textarea>
       </div>
 
       <div class="panel">
-        <h3>2. Priorización (Top 5)</h3>
-        <label>Proceso | Impacto | Esfuerzo | Riesgo | Score</label>
-        <textarea id="prio" placeholder="Gestionar incidencias | 5 | 3 | 3 | Score: 7 | Alto volumen..."></textarea>
+        <h3>2. Bloque Principal</h3>
+        <label>Ejercicio | Series | Repeticiones | Descanso</label>
+        <textarea id="prio" placeholder="Sentadillas | 4 series | 10 reps | 90 seg&#10;Press Banca | 3 series | 12 reps | 60 seg..."></textarea>
       </div>
     </section>
 
     <hr class="sep"/>
 
     <section class="panel">
-      <h3>3. Modelo SIPOC</h3>
-      <label>Completa los 5 pasos básicos (4-6 tareas en Process)</label>
-      <textarea id="sipoc" placeholder="Suppliers: ...&#10;Inputs: ...&#10;Process: 1) ... 2) ... 3) ...&#10;Outputs: ...&#10;Customers: ..."></textarea>
+      <h3>3. Nutrición y Estiramientos</h3>
+      <label>Notas para el post-entreno</label>
+      <textarea id="sipoc" placeholder="Batido de proteínas.&#10;Estiramiento de isquios y espalda baja durante 5 min."></textarea>
 
       <div class="actions" style="margin-top: 15px;">
-        <button class="btn primary" id="btnExport" type="button">Generar Documento Markdown</button>
-        <button class="btn" id="btnDownload" type="button">Descargar .md</button>
+        <button class="btn primary" id="btnExport" type="button">Generar Tabla de Entrenamiento</button>
+        <button class="btn" id="btnDownload" type="button">Descargar Rutina</button>
       </div>
     </section>
 
     <hr class="sep"/>
 
     <section class="panel">
-      <h3>Vista Previa del Documento</h3>
-      <textarea id="mdOut" placeholder="El código Markdown aparecerá aquí..."></textarea>
+      <h3>Vista Previa</h3>
+      <textarea id="mdOut" placeholder="Tu rutina aparecerá aquí..."></textarea>
     </section>
   </main>
 

@@ -3,41 +3,38 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>MicroDSI · Pistas</title>
+  <title>FitForge · Evaluación</title>
   <link rel="stylesheet" href="assets/styles.css"/>
 </head>
 <body>
   <header class="topbar">
     <div class="row">
       <div class="brand">
-        <b>MicroDSI</b>
-        <span>Pistas · Caso guiado</span>
+        <b>FitForge</b>
+        <span>Evaluación Física Inicial</span>
       </div>
 
       <nav class="nav">
         <div class="btn track-selector" style="padding:8px 10px; border-radius:8px;">
-          <small style="margin-right:8px; color:var(--muted);">Track:</small>
+          <small style="margin-right:8px; color:var(--muted);">Objetivo:</small>
           <select id="trackSel" style="border:none; background:transparent; color:var(--text); outline:none; font-weight:600; cursor:pointer;">
-            <option value="itsm">ITSM Triage</option>
-            <option value="hr">HR</option>
-            <option value="proc">Procurement</option>
+            <option value="fuerza">Fuerza (Pesas)</option>
+            <option value="cardio">Cardio y Resistencia</option>
+            <option value="yoga">Yoga y Movilidad</option>
           </select>
         </div>
 
         <a class="btn" href="index.html">Inicio</a>
-        <a class="btn" href="feed.html">Feed</a>
-        <a class="btn primary" href="lab.html">Laboratorio</a>
+        <a class="btn" href="feed.html">Ejercicios</a>
+        <a class="btn primary" href="lab.html">Crear Rutina</a>
       </nav>
     </div>
   </header>
 
   <main class="container">
     <div class="panel">
-      <h3 style="margin:0 0 10px 0;">Progreso del Caso</h3>
+      <h3 style="margin:0 0 10px 0;">Tu Progreso</h3>
       <div class="progress"><i id="prog"></i></div>
-      <span class="footerHint">
-        Desplázate horizontalmente. Cada pista requiere una respuesta breve con 1 dato o condición técnica.
-      </span>
     </div>
   </main>
 
