@@ -226,7 +226,7 @@ function renderFeed(){
   if(!wrap) return;
 
   const t = getTrack();
-  wrap.innerHTML = "";
+  wrap.innerHTML = ""; // re-render limpio
 
   LESSONS.forEach((L, idx) => {
     const snap = el("section","cardSnap");
@@ -329,79 +329,37 @@ function setupPista(){
 }
 
 // =====================
-// Funciones Interactivas del Lab
+// Lab export (Versión Simple)
 // =====================
-
-// 1. Calculadora de Score
-function setupCalculator() {
-  const btnCalc = document.getElementById("btnCalc");
-  const res = document.getElementById("calcResult");
-  if(!btnCalc) return;
-
-  btnCalc.addEventListener("click", () => {
-    const i = parseInt(document.getElementById("calcI").value) || 0;
-    const e = parseInt(document.getElementById("calcE").value) || 0;
-    const r = parseInt(document.getElementById("calcR").value) || 0;
-    
-    // Fórmula: (Impacto * 2) - Esfuerzo + Riesgo
-    const score = (i * 2) - e + r;
-    res.textContent = `Resultado: ${score}`;
-    
-    // Animación visual de éxito
-    res.style.transform = "scale(1.1)";
-    setTimeout(() => res.style.transform = "scale(1)", 200);
-  });
-}
-
-// 2. Exportación inteligente a Markdown
 function exportLabToMarkdown(){
-  const out = document.getElementById("mdOut");
-  const inv = document.getElementById("inv")?.value.trim() || "_(vacío)_";
-  const pr  = document.getElementById("prio")?.value.trim() || "_(vacío)_";
-  
-  // Recoger campos del SIPOC dinámico
-  const s = document.getElementById("sipocS")?.value.trim() || "...";
-  const i = document.getElementById("sipocI")?.value.trim() || "...";
-  const p = document.getElementById("sipocP")?.value.trim() || "...";
-  const o = document.getElementById("sipocO")?.value.trim() || "...";
-  const c = document.getElementById("sipocC")?.value.trim() || "...";
+  const out = $("#mdOut");
+  const inv = $("#inv")?.value.trim() || "";
+  const pr  = $("#prio")?.value.trim() || "";
+  const sip = $("#sipoc")?.value.trim() || "";
 
   const t = getTrack();
   const tName = TRACKS.find(x=>x.id===t)?.name || t;
 
-  // Construir el documento final maquetado
   const md = [
-    `# M2-S10 · Documento de Arquitectura de Procesos`,
-    `**Track Seleccionado:** ${tName}`,
-    `---`,
+    `# M2-S10 · Entregable rápido · ${tName}`,
     "",
-    "## 1. Inventario (L1)",
-    inv,
+    "## Inventario (L1)",
+    inv ? inv : "_(vacío)_",
     "",
-    "## 2. Priorización (Impacto/Esfuerzo/Riesgo)",
-    pr,
+    "## Priorización (Impacto/Esfuerzo/Riesgo)",
+    pr ? pr : "_(vacío)_",
     "",
-    "## 3. Modelo SIPOC Construido",
-    `* **Suppliers:** ${s}`,
-    `* **Inputs:** ${i}`,
-    `* **Process:**`,
-    p.split('\n').map(line => `  > ${line}`).join('\n'),
-    `* **Outputs:** ${o}`,
-    `* **Customers:** ${c}`,
+    "## SIPOC",
+    sip ? sip : "_(vacío)_",
     "",
-    "---",
-    "## Nota de Diseño (Restricción Dominante)",
-    "_(Añade aquí tu justificación final sobre PII o Auditoría)_"
+    "## Nota (trade-off)",
+    "_(2 criterios numéricos + 1 restricción)_"
   ].join("\n");
 
   out.value = md;
 }
 
 function downloadText(filename, text){
-  if(!text) {
-    alert("Primero debes hacer clic en 'Generar Documento Markdown'");
-    return;
-  }
   const blob = new Blob([text], {type:"text/plain;charset=utf-8"});
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -410,21 +368,20 @@ function downloadText(filename, text){
 }
 
 // =====================
-// Inicializador (Boot)
+// Boot
 // =====================
 document.addEventListener("DOMContentLoaded", ()=>{
   ensureTrackSelector();
-  if(document.getElementById("feedWrap")) renderFeed();
+  if($("#feedWrap")) renderFeed();
   setupPista();
-  setupCalculator(); // Inicia la calculadora
 
-  const exp = document.getElementById("btnExport");
+  const exp = $("#btnExport");
   if(exp) exp.addEventListener("click", exportLabToMarkdown);
 
-  const dl = document.getElementById("btnDownload");
+  const dl = $("#btnDownload");
   if(dl) dl.addEventListener("click", ()=>{
-    const text = document.getElementById("mdOut").value || "";
+    const text = $("#mdOut").value || "";
     const t = getTrack();
-    downloadText(`m2-s10_${t}_entregable_avanzado.md`, text);
+    downloadText(`m2-s10_${t}_entregable.md`, text);
   });
 });
