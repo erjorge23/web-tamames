@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>MicroDSI · Laboratorio Interactivo</title>
+  <title>MicroDSI · Laboratorio Simple</title>
   <link rel="stylesheet" href="assets/styles.css"/>
 </head>
 <body>
@@ -11,7 +11,7 @@
     <div class="row">
       <div class="brand">
         <b>MicroDSI</b>
-        <span>App de Modelado y Priorización</span>
+        <span>Laboratorio de Procesos</span>
       </div>
       <nav class="nav">
         <a class="btn" href="index.html">Inicio</a>
@@ -22,16 +22,11 @@
   </header>
 
   <main class="container">
-    <section class="panel" style="background: var(--primary-light); border-color: #bfdbfe;">
-      <h3 style="color: var(--primary);">⚡ Calculadora de Score Oficial</h3>
-      <p style="margin-bottom: 12px;">Fórmula aplicada: Score = (Impacto * 2) - Esfuerzo + Riesgo</p>
-      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-        <input type="number" id="calcI" placeholder="Impacto (1-5)" min="1" max="5" style="width: 130px;">
-        <input type="number" id="calcE" placeholder="Esfuerzo (1-5)" min="1" max="5" style="width: 130px;">
-        <input type="number" id="calcR" placeholder="Riesgo (1-5)" min="1" max="5" style="width: 130px;">
-        <button class="btn primary" id="btnCalc" type="button">Calcular</button>
-        <span id="calcResult" style="font-weight: bold; font-size: 18px; color: var(--primary); margin-left: 10px;"></span>
-      </div>
+    <section class="panel">
+      <h3>Laboratorio de Modelado</h3>
+      <p>
+        Escribe directamente en las cajas de texto de abajo. Cuando termines, pulsa el botón para generar tu documento exportable.
+      </p>
     </section>
 
     <hr class="sep"/>
@@ -39,48 +34,25 @@
     <section class="formRow">
       <div class="panel">
         <h3>1. Inventario (Nivel L1)</h3>
-        <label>10–15 procesos (Verbo + Objeto)</label>
-        <textarea id="inv" placeholder="Ej: Gestionar incidencias operativas..."></textarea>
+        <label>Escribe 10–15 procesos (uno por línea)</label>
+        <textarea id="inv" placeholder="Ej: Gestionar incidencias&#10;Ej: Registrar alta de proveedor..."></textarea>
       </div>
 
       <div class="panel">
-        <h3>2. Matriz de Priorización (Top 5)</h3>
-        <label>Usa la calculadora de arriba para sacar el Score</label>
-        <textarea id="prio" placeholder="Proceso | I | E | R | Score | Justificación (Volumen/Retrabajo)"></textarea>
+        <h3>2. Priorización (Top 5)</h3>
+        <label>Proceso | Impacto | Esfuerzo | Riesgo | Score</label>
+        <textarea id="prio" placeholder="Gestionar incidencias | 5 | 3 | 3 | Score: 7 | Alto volumen..."></textarea>
       </div>
     </section>
 
     <hr class="sep"/>
 
     <section class="panel">
-      <h3>3. Constructor SIPOC Interactivo</h3>
-      <label>Rellena cada campo por separado (4-6 pasos en el proceso)</label>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-        <div>
-          <label>Suppliers (Proveedores)</label>
-          <input type="text" id="sipocS" placeholder="Ej: Usuarios, Proveedores ERP...">
-        </div>
-        <div>
-          <label>Inputs (Entradas - ¡Avisa si hay PII!)</label>
-          <input type="text" id="sipocI" placeholder="Ej: Documentos fiscales (Contiene PII)">
-        </div>
-      </div>
-      <div>
-        <label>Process (4 a 6 pasos secuenciales)</label>
-        <textarea id="sipocP" style="min-height: 80px;" placeholder="1. Recibir solicitud&#10;2. Validar datos&#10;3. Aprobar en sistema..."></textarea>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
-        <div>
-          <label>Outputs (Salidas)</label>
-          <input type="text" id="sipocO" placeholder="Ej: Alta confirmada y registrada">
-        </div>
-        <div>
-          <label>Customers (Clientes)</label>
-          <input type="text" id="sipocC" placeholder="Ej: Departamento de Finanzas">
-        </div>
-      </div>
+      <h3>3. Modelo SIPOC</h3>
+      <label>Completa los 5 pasos básicos (4-6 tareas en Process)</label>
+      <textarea id="sipoc" placeholder="Suppliers: ...&#10;Inputs: ...&#10;Process: 1) ... 2) ... 3) ...&#10;Outputs: ...&#10;Customers: ..."></textarea>
 
-      <div class="actions" style="margin-top: 25px; border-top: 1px solid var(--line); padding-top: 15px;">
+      <div class="actions" style="margin-top: 15px;">
         <button class="btn primary" id="btnExport" type="button">Generar Documento Markdown</button>
         <button class="btn" id="btnDownload" type="button">Descargar .md</button>
       </div>
@@ -90,7 +62,7 @@
 
     <section class="panel">
       <h3>Vista Previa del Documento</h3>
-      <textarea id="mdOut" placeholder="El código Markdown se construirá mágicamente aquí..." readonly style="background: #f1f5f9; cursor: not-allowed;"></textarea>
+      <textarea id="mdOut" placeholder="El código Markdown aparecerá aquí..."></textarea>
     </section>
   </main>
 
