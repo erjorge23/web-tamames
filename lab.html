@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>MicroDSI · Laboratorio</title>
+  <link rel="stylesheet" href="assets/styles.css"/>
+</head>
+<body>
+  <header class="topbar">
+    <div class="row">
+      <div class="brand">
+        <b>MicroDSI</b>
+        <span>Laboratorio de Procesos</span>
+      </div>
+      <nav class="nav">
+        <a class="btn" href="index.html">Inicio</a>
+        <a class="btn" href="feed.html">Feed</a>
+        <a class="btn" href="pista.htm">Pistas</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h3>Laboratorio de Modelado</h3>
+      <p>
+        Completa los módulos a continuación para generar la documentación de tu proceso. Asegúrate de incluir datos cuantitativos que justifiquen tus decisiones de diseño.
+      </p>
+      <div class="kpi" style="margin-top:12px">
+        <div class="box"><b>Requisito 1</b><span>10–15 procesos L1 listados.</span></div>
+        <div class="box"><b>Requisito 2</b><span>Top 5 priorizados con matriz I/E/R.</span></div>
+        <div class="box"><b>Requisito 3</b><span>1 modelo SIPOC completo (4-6 pasos).</span></div>
+      </div>
+    </section>
+
+    <hr class="sep"/>
+
+    <section class="formRow">
+      <div class="panel">
+        <h3>1. Inventario (Nivel L1)</h3>
+        <label>Listado de procesos (Fórmula: Verbo de acción + Objeto)</label>
+        <textarea id="inv" placeholder="Ej: Gestionar incidencias operativas&#10;Ej: Registrar alta de proveedor&#10;..."></textarea>
+      </div>
+
+      <div class="panel">
+        <h3>2. Matriz de Priorización (Top 5)</h3>
+        <label>Formato: Proceso | Impacto | Esfuerzo | Riesgo | Score | Justificación</label>
+        <textarea id="prio" placeholder="Gestionar incidencias | 5 | 3 | 3 | Score: 7 | Alto volumen (6000/mes) y 25% de retrabajo&#10;..."></textarea>
+      </div>
+    </section>
+
+    <hr class="sep"/>
+
+    <section class="panel">
+      <h3>3. Modelo SIPOC</h3>
+      <label>Define las fronteras del proceso seleccionado</label>
+      <textarea id="sipoc" placeholder="Suppliers: ...&#10;Inputs: ... (Indicar si contiene PII)&#10;Process: 1) ... 2) ... 3) ... 4) ...&#10;Outputs: ...&#10;Customers: ..."></textarea>
+
+      <div class="actions" style="margin-top: 15px;">
+        <button class="btn primary" id="btnExport" type="button">Generar Documento Markdown</button>
+        <button class="btn" id="btnDownload" type="button">Descargar .md</button>
+      </div>
+    </section>
+
+    <hr class="sep"/>
+
+    <section class="panel">
+      <h3>Vista Previa del Documento</h3>
+      <label>Resultado exportable</label>
+      <textarea id="mdOut" placeholder="El código Markdown se generará aquí..."></textarea>
+    </section>
+  </main>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
