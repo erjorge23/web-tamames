@@ -181,34 +181,110 @@ function setupPista(){
 }
 
 // =====================
-// Lab export (Generador de Texto)
+// Lab export (Generador Automático de Rutinas)
 // =====================
 function exportLabToMarkdown(){
-  const out = $("#mdOut");
-  const inv = $("#inv")?.value.trim() || "";
-  const pr  = $("#prio")?.value.trim() || "";
-  const sip = $("#sipoc")?.value.trim() || "";
+  const out = document.getElementById("mdOut");
+  
+  // Capturar las respuestas del usuario
+  const goal = document.getElementById("qGoal").value;
+  const nivel = document.getElementById("qNivel").value;
+  const lugar = document.getElementById("qLugar").value;
+  const dias = parseInt(document.getElementById("qDias").value);
 
-  const t = getTrack();
-  const tName = TRACKS.find(x=>x.id===t)?.name || t;
+  let rutina = "";
+  let consejos = "";
 
-  // Usamos formato de subrayado para los títulos del documento
+  // Lógica del cerebro: Decidir qué rutina dar según respuestas
+  if (lugar === "casa") {
+    // RUTINAS PARA CASA (Sin material)
+    rutina += "Día 1: Circuito Cuerpo Completo\n";
+    rutina += " - Sentadillas al aire: 4 series x 15 reps\n";
+    rutina += " - Flexiones (apoya rodillas si cuesta): 4 series x fallo\n";
+    rutina += " - Plancha abdominal: 3 series x 40 segundos\n";
+    
+    if (dias >= 3) {
+      rutina += "\nDía 2: Cardio HIIT y Piernas\n";
+      rutina += " - Jumping Jacks: 4 series x 1 minuto\n";
+      rutina += " - Zancadas alternas: 4 series x 12 reps/pierna\n";
+      rutina += " - Escaladores (Mountain Climbers): 4 series x 45 seg\n";
+    }
+    if (dias >= 4) {
+      rutina += "\nDía 3: Core y Glúteos intensivo\n";
+      rutina += " - Puente de glúteo: 4 series x 20 reps\n";
+      rutina += " - Abdominales tipo bicicleta: 3 series x 20 reps\n";
+      rutina += " - Sentadilla con salto: 3 series x 12 reps\n";
+    }
+  } else {
+    // RUTINAS PARA GIMNASIO (Con máquinas)
+    if (goal === "fuerza" || goal === "salud") {
+      rutina += "Día 1: Tren Superior (Empuje y Tirón)\n";
+      rutina += " - Press de banca con mancuernas: 4 series x 10 reps\n";
+      rutina += " - Jalón al pecho en polea: 4 series x 10 reps\n";
+      rutina += " - Press militar (Hombros): 3 series x 12 reps\n";
+      
+      if (dias >= 3) {
+        rutina += "\nDía 2: Tren Inferior (Piernas completas)\n";
+        rutina += " - Prensa de piernas: 4 series x 12 reps\n";
+        rutina += " - Peso muerto rumano (Femorales): 3 series x 10 reps\n";
+        rutina += " - Extensiones de cuádriceps: 3 series x 15 reps\n";
+      }
+      if (dias >= 4) {
+        rutina += "\nDía 3: Brazos y Abdomen\n";
+        rutina += " - Curl de bíceps con barra: 4 series x 12 reps\n";
+        rutina += " - Extensión de tríceps en polea: 4 series x 12 reps\n";
+        rutina += " - Elevación de piernas colgando: 3 series x fallo\n";
+      }
+    } else if (goal === "perdida") {
+      rutina += "Día 1: Circuito Metabólico y Pesas\n";
+      rutina += " - 15 min de elíptica (Intensidad moderada)\n";
+      rutina += " - Circuito: Sentadillas + Flexiones + Remo en máquina (3 rondas de 15 reps sin descanso)\n";
+      
+      if (dias >= 3) {
+        rutina += "\nDía 2: Cardio Continuo y Core\n";
+        rutina += " - 30 min de cinta inclinada o bicicleta\n";
+        rutina += " - Plancha lateral: 3 series x 30 seg por lado\n";
+      }
+      if (dias >= 4) {
+        rutina += "\nDía 3: Full Body Ligero\n";
+        rutina += " - Máquina de pecho (Contractor): 3 series x 15 reps\n";
+        rutina += " - Máquina de piernas (Curl femoral): 3 series x 15 reps\n";
+        rutina += " - 15 min de remo estático al final\n";
+      }
+    }
+  }
+
+  // Si es el último día, añadimos descanso
+  rutina += `\nDía ${dias}: DESCANSO ACTIVO (Caminar, estirar, yoga ligero)\n`;
+
+  // Añadir consejos según el objetivo
+  if (goal === "fuerza") {
+    consejos = "Nutrición: Mantén un ligero superávit calórico y come suficiente proteína.\nDescanso: Deja descansar al menos 2 minutos entre series pesadas.";
+  } else if (goal === "perdida") {
+    consejos = "Nutrición: Mantén un déficit calórico ligero (come menos de lo que gastas).\nDescanso: Tiempos de descanso cortos (45 a 60 segundos) para sudar más.";
+  } else {
+    consejos = "Nutrición: Come alimentos reales y bebe 2 litros de agua al día.\nEnfoque: Disfruta del proceso, la constancia vale más que la intensidad extrema.";
+  }
+
+  // Formateamos el texto final para mostrarlo bonito
   const md = [
-    "MI RUTINA DE ENTRENAMIENTO",
-    "==========================",
-    `Enfoque: ${tName}`,
+    "TU RUTINA INTELIGENTE CALCULADA",
+    "===============================",
     "",
-    "1. Calentamiento",
-    "----------------",
-    inv ? inv : "Sin calentamiento definido.",
+    "TUS DATOS",
+    "---------",
+    `Objetivo: ${document.getElementById("qGoal").options[document.getElementById("qGoal").selectedIndex].text}`,
+    `Experiencia: ${document.getElementById("qNivel").options[document.getElementById("qNivel").selectedIndex].text}`,
+    `Lugar: ${document.getElementById("qLugar").options[document.getElementById("qLugar").selectedIndex].text}`,
+    `Días a entrenar: ${dias} días por semana`,
     "",
-    "2. Ejercicios Principales",
-    "-------------------------",
-    pr ? pr : "Sin ejercicios definidos.",
+    "LOS EJERCICIOS",
+    "--------------",
+    rutina,
     "",
-    "3. Nutrición y Post-Entreno",
-    "---------------------------",
-    sip ? sip : "Sin notas.",
+    "CONSEJOS EXTRA PARA TI",
+    "----------------------",
+    consejos
   ].join("\n");
 
   out.value = md;
@@ -228,15 +304,15 @@ function downloadText(filename, text){
 // =====================
 document.addEventListener("DOMContentLoaded", ()=>{
   ensureTrackSelector();
-  if($("#feedWrap")) renderFeed();
+  if(document.getElementById("feedWrap")) renderFeed();
   setupPista();
 
-  const exp = $("#btnExport");
+  const exp = document.getElementById("btnExport");
   if(exp) exp.addEventListener("click", exportLabToMarkdown);
 
-  const dl = $("#btnDownload");
+  const dl = document.getElementById("btnDownload");
   if(dl) dl.addEventListener("click", ()=>{
-    const text = $("#mdOut").value || "";
-    downloadText(`mi_rutina.txt`, text);
+    const text = document.getElementById("mdOut").value || "";
+    downloadText(`Mi_Rutina_Calculada.txt`, text);
   });
 });

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>FitForge · Laboratorio</title>
+  <title>FitForge · Generador Automático</title>
   <link rel="stylesheet" href="assets/styles.css"/>
 </head>
 <body>
@@ -11,7 +11,7 @@
     <div class="row">
       <div class="brand">
         <b>FitForge</b>
-        <span>Constructor de Rutinas</span>
+        <span>Entrenador Personal IA</span>
       </div>
       <nav class="nav">
         <a class="btn" href="index.html">Inicio</a>
@@ -23,44 +23,66 @@
 
   <main class="container">
     <section class="panel">
-      <h3>Diseña tu semana de entrenamiento</h3>
-      <p>Rellena los bloques para generar tu tabla en texto plano, lista para llevar en el móvil.</p>
+      <h3>Generador Mágico de Rutinas</h3>
+      <p>Responde a estas 4 preguntas y nuestro sistema calculará automáticamente los ejercicios, series y repeticiones exactas que necesitas hacer.</p>
     </section>
 
     <hr class="sep"/>
 
     <section class="formRow">
       <div class="panel">
-        <h3>1. Calentamiento (Warm-up)</h3>
-        <label>Ejercicios de movilidad y activación</label>
-        <textarea id="inv" placeholder="Ej: 5 min de cinta&#10;Rotaciones articulares..."></textarea>
+        <h3>1. Tu Objetivo Principal</h3>
+        <label>¿Qué quieres conseguir?</label>
+        <select id="qGoal">
+          <option value="fuerza">Ganar Masa Muscular (Fuerza)</option>
+          <option value="perdida">Perder Grasa (Definición)</option>
+          <option value="salud">Mantenimiento y Salud General</option>
+        </select>
       </div>
 
       <div class="panel">
-        <h3>2. Bloque Principal</h3>
-        <label>Ejercicio | Series | Repeticiones | Descanso</label>
-        <textarea id="prio" placeholder="Sentadillas | 4 series | 10 reps | 90 seg&#10;Press Banca | 3 series | 12 reps | 60 seg..."></textarea>
+        <h3>2. Nivel de Experiencia</h3>
+        <label>¿Cuánto tiempo llevas entrenando?</label>
+        <select id="qNivel">
+          <option value="principiante">Principiante (0 - 6 meses)</option>
+          <option value="intermedio">Intermedio / Avanzado (+6 meses)</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="formRow" style="margin-top: 20px;">
+      <div class="panel">
+        <h3>3. Lugar de Entrenamiento</h3>
+        <label>¿Dónde vas a entrenar?</label>
+        <select id="qLugar">
+          <option value="gym">En el Gimnasio (Máquinas y Pesas)</option>
+          <option value="casa">En Casa (Sin material / Peso corporal)</option>
+        </select>
+      </div>
+
+      <div class="panel">
+        <h3>4. Disponibilidad Semanal</h3>
+        <label>¿Cuántos días puedes entrenar?</label>
+        <select id="qDias">
+          <option value="2">2 Días a la semana</option>
+          <option value="3">3 Días a la semana</option>
+          <option value="4">4 Días a la semana</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-top: 20px; text-align: center;">
+      <div class="actions" style="justify-content: center;">
+        <button class="btn primary" id="btnExport" type="button" style="font-size: 16px; padding: 12px 24px;">¡Calcular Mi Rutina Automática!</button>
+        <button class="btn" id="btnDownload" type="button" style="font-size: 16px; padding: 12px 24px;">Descargar Archivo</button>
       </div>
     </section>
 
     <hr class="sep"/>
 
     <section class="panel">
-      <h3>3. Nutrición y Estiramientos</h3>
-      <label>Notas para el post-entreno</label>
-      <textarea id="sipoc" placeholder="Batido de proteínas.&#10;Estiramiento de isquios y espalda baja durante 5 min."></textarea>
-
-      <div class="actions" style="margin-top: 15px;">
-        <button class="btn primary" id="btnExport" type="button">Generar Tabla de Entrenamiento</button>
-        <button class="btn" id="btnDownload" type="button">Descargar Rutina</button>
-      </div>
-    </section>
-
-    <hr class="sep"/>
-
-    <section class="panel">
-      <h3>Vista Previa</h3>
-      <textarea id="mdOut" placeholder="Tu rutina aparecerá aquí..."></textarea>
+      <h3>Tu Tabla de Entrenamiento</h3>
+      <textarea id="mdOut" placeholder="Tu rutina generada automáticamente aparecerá aquí..." style="min-height: 350px; background: #f8fafc; font-family: monospace;" readonly></textarea>
     </section>
   </main>
 
