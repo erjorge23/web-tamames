@@ -68,33 +68,55 @@
   </section>
 
   <section class="section bg-darker seccion-rutinas">
-    <h2>Tu Rutina <span class="highlight">A Medida</span></h2>
-    <p class="text-center">Dinos qué quieres entrenar hoy y te calcularemos los ejercicios exactos que necesitas.</p>
-    <div class="grid" style="align-items: flex-start;">
+    <h2>Tu Rutina <span class="highlight">Inteligente</span></h2>
+    <p class="text-center">Calculamos tu entrenamiento ideal basándonos en tu biometría y experiencia.</p>
+    <div class="grid" style="align-items: flex-start; gap: 2rem;">
+      
       <div class="calculator-box" style="margin: 0; width: 100%;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+          <div class="input-group">
+            <label>Peso (kg)</label>
+            <input type="number" id="rutina-peso" placeholder="Ej: 75">
+          </div>
+          <div class="input-group">
+            <label>Altura (cm)</label>
+            <input type="number" id="rutina-altura" placeholder="Ej: 175">
+          </div>
+        </div>
+        
         <div class="input-group">
-          <label>Grupo Muscular a Entrenar</label>
-          <select id="grupo-muscular" class="input-select">
+          <label>Nivel de Experiencia</label>
+          <select id="rutina-nivel" class="input-select">
+            <option value="principiante">Principiante (0-6 meses)</option>
+            <option value="intermedio">Intermedio (6 meses - 2 años)</option>
+            <option value="avanzado">Avanzado (+2 años)</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label>Músculos a Entrenar</label>
+          <select id="rutina-grupo" class="input-select">
             <option value="pecho">Pecho y Tríceps</option>
             <option value="espalda">Espalda y Bíceps</option>
             <option value="piernas">Piernas y Glúteos</option>
             <option value="fullbody">Cuerpo Completo (Full Body)</option>
           </select>
         </div>
+
         <div class="input-group">
-          <label>Tipo de Entrenamiento</label>
-          <select id="tipo-entreno" class="input-select">
-            <option value="fuerza">Fuerza Bruta (Pocas reps, mucho peso)</option>
-            <option value="hipertrofia">Hipertrofia (Ganar masa muscular)</option>
-            <option value="resistencia">Resistencia y Quema de Grasa</option>
+          <label>Objetivo</label>
+          <select id="rutina-tipo" class="input-select">
+            <option value="fuerza">Ganar Fuerza (Pesos pesados)</option>
+            <option value="hipertrofia">Hipertrofia (Ganar músculo)</option>
+            <option value="resistencia">Quemar Grasa / Resistencia</option>
           </select>
         </div>
-        <button id="btn-rutina" class="btn-primary" style="width: 100%;">Generar Mis Ejercicios</button>
+        <button id="btn-rutina" class="btn-primary" style="width: 100%; margin-top: 10px;">Generar Entrenamiento</button>
       </div>
       
-      <div class="calculator-box" style="margin: 0; width: 100%; background: rgb(15, 15, 15); border: 1px solid rgb(51, 51, 51);">
-        <h3 style="margin-top:0; color: var(--primary);">Tus Ejercicios:</h3>
-        <div id="resultado-rutina" style="color: var(--text-main); font-family: monospace; white-space: pre-wrap; font-size: 1.05rem; line-height: 1.8;">Selecciona tus opciones en la izquierda y pulsa el botón para generar tu entrenamiento aquí.</div>
+      <div class="calculator-box" style="margin: 0; width: 100%; background: rgb(15, 15, 15); border: 1px solid rgb(51, 51, 51); min-height: 480px;">
+        <h3 style="margin-top:0; color: var(--primary);">Tu Plan Personalizado:</h3>
+        <div id="resultado-rutina" style="color: var(--text-main); font-family: monospace; white-space: pre-wrap; font-size: 1.05rem; line-height: 1.6;">Rellena tus datos y pulsa el botón para generar tu rutina adaptada a tu cuerpo.</div>
       </div>
     </div>
   </section>
@@ -113,7 +135,6 @@
         </ul>
         <button class="btn-secondary" style="border-color: rgb(76, 175, 80); color: rgb(76, 175, 80);">Comenzar Gratis</button>
       </div>
-      
       <div class="pricing-card popular">
         <div class="badge">MÁS POPULAR</div>
         <h3>Mensual PRO</h3>
@@ -125,7 +146,6 @@
         </ul>
         <button class="btn-primary">Únete Ahora</button>
       </div>
-      
       <div class="pricing-card">
         <h3>Anual VIP</h3>
         <div class="price">399€<span>/año</span></div>
@@ -136,22 +156,6 @@
         </ul>
         <button class="btn-secondary">Ahorrar un 15%</button>
       </div>
-    </div>
-  </section>
-
-  <section class="section bg-darker seccion-herramientas" style="padding-top: 2rem;">
-    <h2>Calcula tu <span class="highlight">IMC</span></h2>
-    <div class="calculator-box">
-      <div class="input-group">
-        <label>Peso (kg)</label>
-        <input type="number" class="input-peso" placeholder="Ej: 75">
-      </div>
-      <div class="input-group">
-        <label>Altura (cm)</label>
-        <input type="number" class="input-altura" placeholder="Ej: 175">
-      </div>
-      <button class="btn-primary btn-calcular" style="width: 100%;">Calcular IMC</button>
-      <div class="resultado-imc resultado"></div>
     </div>
   </section>
 

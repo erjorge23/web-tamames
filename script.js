@@ -2,132 +2,122 @@
 // 1. LÓGICA DEL MENÚ DE INICIO DE SESIÓN
 // ==========================================
 const modal = document.getElementById("modalLogin");
-
-function abrirModal() {
-  modal.style.display = "block";
-}
-
-function cerrarModal() {
-  modal.style.display = "none";
-}
-
-// Cierra el modal si el usuario hace clic fuera de la caja
-window.onclick = function(event) {
-  if (event.target == modal) {
-    cerrarModal();
-  }
-}
+function abrirModal() { modal.style.display = "block"; }
+function cerrarModal() { modal.style.display = "none"; }
+window.onclick = function(event) { if (event.target == modal) cerrarModal(); }
 
 // ==========================================
-// 2. LÓGICA DEL GENERADOR DE RUTINAS
+// 2. GENERADOR DE RUTINAS AVANZADO (Biometría + Nivel)
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
   const btnRutina = document.getElementById('btn-rutina');
-  const selectGrupo = document.getElementById('grupo-muscular');
-  const selectTipo = document.getElementById('tipo-entreno');
-  const divResultadoRutina = document.getElementById('resultado-rutina');
-
+  
   btnRutina.addEventListener('click', () => {
-    const grupo = selectGrupo.value;
-    const tipo = selectTipo.value;
+    // Recoger valores del usuario
+    const peso = parseFloat(document.getElementById('rutina-peso').value);
+    const alturaCm = parseFloat(document.getElementById('rutina-altura').value);
+    const nivel = document.getElementById('rutina-nivel').value;
+    const grupo = document.getElementById('rutina-grupo').value;
+    const tipo = document.getElementById('rutina-tipo').value;
+    const divResultado = document.getElementById('resultado-rutina');
+
+    if (isNaN(peso) || isNaN(alturaCm) || peso <= 0 || alturaCm <= 0) {
+      divResultado.innerHTML = "<span style='color: rgb(255, 107, 107);'>❌ Por favor, introduce tu peso y altura correctamente para adaptar la rutina.</span>";
+      return;
+    }
+
+    // Calcular IMC para adaptar los ejercicios (Proteger articulaciones)
+    const alturaM = alturaCm / 100;
+    const imc = peso / (alturaM * alturaM);
+    let esBajoImpacto = imc >= 27; // Si hay sobrepeso, quitamos saltos
+    let biometriaInfo = "";
+
+    if (imc < 18.5) {
+      biometriaInfo = "💡 Nota Biometría: Tienes bajo peso. No te saltes las comidas post-entreno, necesitas calorías para crear músculo.";
+    } else if (esBajoImpacto) {
+      biometriaInfo = "💡 Nota Biometría: Hemos sustituido los ejercicios con saltos por versiones de BAJO IMPACTO para proteger tus rodillas y articulaciones.";
+    } else {
+      biometriaInfo = "💡 Nota Biometría: Tu relación peso/altura es óptima para realizar ejercicios de impacto y rango completo.";
+    }
+
+    // Configurar volumen según el nivel
+    let multiplicadorSeries = 1;
+    let consejoNivel = "";
+    if (nivel === "principiante") {
+      multiplicadorSeries = 2; // Principiantes hacen 2-3 series
+      consejoNivel = "Céntrate en aprender la técnica. No subas el peso si no controlas el movimiento.";
+    } else if (nivel === "intermedio") {
+      multiplicadorSeries = 3; // Intermedios hacen 3-4 series
+      consejoNivel = "Intenta subir un poco el peso respecto a la semana pasada (Sobrecarga progresiva).";
+    } else {
+      multiplicadorSeries = 4; // Avanzados hacen 4-5 series
+      consejoNivel = "Aplica máxima intensidad. Llega al fallo muscular en la última serie de cada ejercicio.";
+    }
+
     let rutina = "";
     let descanso = "";
 
-    // Lógica para decidir los ejercicios
+    // SELECCIÓN DE EJERCICIOS
     if (grupo === 'pecho') {
       if (tipo === 'fuerza') {
-        rutina = "1. Press de Banca con barra: 4 x 3-5 reps\n2. Press Inclinado c/mancuernas: 3 x 6 reps\n3. Fondos lastrados: 3 x 6 reps\n4. Press francés (Tríceps): 3 x 6-8 reps";
-        descanso = "Descansa 2 a 3 minutos entre series.";
+        rutina = `1. Press de Banca: ${multiplicadorSeries + 1} series x 3-5 reps\n2. Press Inclinado: ${multiplicadorSeries} series x 6 reps\n3. Fondos en paralelas: ${multiplicadorSeries} series x 6 reps`;
+        descanso = "Descansa 3 minutos entre series.";
       } else if (tipo === 'hipertrofia') {
-        rutina = "1. Press de Banca: 4 x 8-12 reps\n2. Aperturas en polea: 3 x 12-15 reps\n3. Press declinado en máquina: 3 x 10 reps\n4. Extensión de tríceps en polea: 4 x 12 reps";
-        descanso = "Descansa 60 a 90 segundos entre series.";
+        rutina = `1. Press de Banca Mancuernas: ${multiplicadorSeries} series x 8-12 reps\n2. Aperturas en polea: ${multiplicadorSeries} series x 12-15 reps\n3. Extensión de tríceps: ${multiplicadorSeries} series x 12 reps`;
+        descanso = "Descansa 90 segundos entre series.";
       } else {
-        rutina = "1. Flexiones explosivas: 4 x fallo\n2. Press con mancuernas ligero: 4 x 15-20 reps\n3. Burpees: 3 x 1 minuto\n4. Flexiones diamante (Tríceps): 3 x fallo";
-        descanso = "Descansa solo 45 segundos para mantener pulsaciones altas.";
+        let ejCardio = esBajoImpacto ? "Batidas con cuerda (Battle Ropes)" : "Burpees";
+        rutina = `1. Flexiones: ${multiplicadorSeries} series x fallo\n2. Press ligero rápido: ${multiplicadorSeries} series x 20 reps\n3. ${ejCardio}: 3 series x 45 segundos`;
+        descanso = "Descansa 45 segundos para mantener pulsaciones altas.";
       }
     } 
     else if (grupo === 'espalda') {
       if (tipo === 'fuerza') {
-        rutina = "1. Peso Muerto: 4 x 3-5 reps\n2. Dominadas lastradas: 3 x 5 reps\n3. Remo con barra: 3 x 6 reps\n4. Curl de bíceps pesado: 3 x 6-8 reps";
-        descanso = "Descansa 2 a 3 minutos entre series.";
-      } else if (tipo === 'hipertrofia') {
-        rutina = "1. Jalón al pecho: 4 x 8-12 reps\n2. Remo en polea baja: 3 x 10-12 reps\n3. Pullover en polea: 3 x 15 reps\n4. Curl martillo (Bíceps): 4 x 12 reps";
-        descanso = "Descansa 60 a 90 segundos entre series.";
+        rutina = `1. Peso Muerto: ${multiplicadorSeries + 1} series x 3-5 reps\n2. Dominadas lastradas: ${multiplicadorSeries} series x 5 reps\n3. Remo con barra pesada: ${multiplicadorSeries} series x 6 reps`;
+        descanso = "Descansa 3 minutos entre series pesadas.";
       } else {
-        rutina = "1. Remo TRX: 4 x fallo\n2. Dominadas asistidas / excéntricas: 3 x 10 reps\n3. Saltos a la comba: 3 x 2 minutos\n4. Curl de bíceps con banda elástica: 3 x 20 reps";
-        descanso = "Descansa solo 45 segundos para mantener pulsaciones altas.";
+        rutina = `1. Jalón al pecho: ${multiplicadorSeries + 1} series x 10 reps\n2. Remo en polea baja: ${multiplicadorSeries} series x 12 reps\n3. Curl de bíceps: ${multiplicadorSeries} series x 12 reps`;
+        descanso = "Descansa 60 a 90 segundos.";
       }
     }
     else if (grupo === 'piernas') {
       if (tipo === 'fuerza') {
-        rutina = "1. Sentadilla trasera con barra: 4 x 3-5 reps\n2. Peso Muerto Rumano: 3 x 6 reps\n3. Prensa de piernas inclinada: 3 x 6 reps\n4. Elevación de gemelos con peso: 4 x 8 reps";
-        descanso = "Descansa 3 minutos entre series (las piernas exigen más).";
+        rutina = `1. Sentadilla trasera: ${multiplicadorSeries + 1} series x 3-5 reps\n2. Prensa de piernas: ${multiplicadorSeries} series x 6 reps\n3. Peso Muerto Rumano: ${multiplicadorSeries} series x 8 reps`;
+        descanso = "Descansa 3 minutos (las piernas agotan mucho el sistema nervioso).";
       } else if (tipo === 'hipertrofia') {
-        rutina = "1. Prensa de piernas: 4 x 10-12 reps\n2. Extensiones de cuádriceps: 3 x 15 reps\n3. Curl femoral tumbado: 3 x 12 reps\n4. Zancadas (Lunges) c/mancuernas: 3 x 10/pierna";
-        descanso = "Descansa 90 segundos entre series.";
+        rutina = `1. Prensa de piernas: ${multiplicadorSeries + 1} series x 12 reps\n2. Extensiones de cuádriceps: ${multiplicadorSeries} series x 15 reps\n3. Curl femoral: ${multiplicadorSeries} series x 12 reps`;
+        descanso = "Descansa 90 segundos.";
       } else {
-        rutina = "1. Sentadillas con salto: 4 x 20 reps\n2. Zancadas alternas rápidas: 3 x 1 min\n3. Sprint en cinta o estático: 4 x 30 segundos\n4. Subidas al cajón (Box jumps): 3 x 15 reps";
-        descanso = "Descansa 45 segundos. Prepárate para sudar.";
+        let ejSalto = esBajoImpacto ? "Zancadas sin salto (paso a paso)" : "Sentadillas con salto";
+        rutina = `1. Sentadilla Goblet: ${multiplicadorSeries} series x 20 reps\n2. ${ejSalto}: ${multiplicadorSeries} series x 1 minuto\n3. Sprint estático/bici: 4 x 30 seg`;
+        descanso = "Descansa 45 segundos.";
       }
     }
     else if (grupo === 'fullbody') {
-      if (tipo === 'fuerza') {
-        rutina = "1. Sentadilla pesada: 3 x 5 reps\n2. Press de Banca: 3 x 5 reps\n3. Dominadas o Jalón: 3 x 5 reps\n4. Press Militar (Hombros): 3 x 5 reps";
-        descanso = "Descansa 2 a 3 minutos. Es un entreno muy demandante.";
-      } else if (tipo === 'hipertrofia') {
-        rutina = "1. Prensa de piernas: 3 x 10 reps\n2. Press inclinado mancuernas: 3 x 10 reps\n3. Remo en polea: 3 x 10 reps\n4. Elevaciones laterales (Hombros): 3 x 15 reps";
-        descanso = "Descansa 60 a 90 segundos.";
+      if (tipo === 'resistencia') {
+        let ejImpacto = esBajoImpacto ? "Kettlebell Swings (Sin saltos)" : "Saltos al cajón";
+        rutina = `CIRCUITO (Da ${multiplicadorSeries} vueltas completas):\n1. Sentadillas (15 reps)\n2. Flexiones (10 reps)\n3. ${ejImpacto} (15 reps)\n4. Plancha (45 seg)`;
+        descanso = "Sin descanso entre ejercicios. Descansa 2 min al terminar la vuelta completa.";
       } else {
-        rutina = "CIRCUITO (4 Rondas completas, sin pausa entre ejercicios):\n1. Kettlebell Swings (15 reps)\n2. Flexiones (10 reps)\n3. Zancadas (20 reps)\n4. Plancha abdominal (45 seg)";
-        descanso = "Descansa 2 minutos solo al terminar cada ronda completa.";
+        rutina = `1. Sentadilla: ${multiplicadorSeries} series x 8 reps\n2. Press Banca: ${multiplicadorSeries} series x 8 reps\n3. Remo: ${multiplicadorSeries} series x 8 reps\n4. Press Hombros: ${multiplicadorSeries} series x 10 reps`;
+        descanso = "Descansa 90 segundos.";
       }
     }
 
-    // Imprimir el resultado en pantalla
-    divResultadoRutina.innerHTML = `<strong>TUS EJERCICIOS:</strong>\n\n${rutina}\n\n<strong style="color:var(--primary);">💡 CONSEJO:</strong>\n${descanso}`;
-  });
-});
+    // Construir el texto final
+    const resultadoHTML = `
+<strong style="color:var(--primary); font-size:1.2rem;">RUTINA NIVEL: ${nivel.toUpperCase()}</strong>
 
-// ==========================================
-// 3. LÓGICA DE LA CALCULADORA DE IMC
-// ==========================================
-document.addEventListener('DOMContentLoaded', () => {
-  const btnCalcular = document.querySelector('.btn-calcular');
-  const inputPeso = document.querySelector('.input-peso');
-  const inputAltura = document.querySelector('.input-altura');
-  const divResultado = document.querySelector('.resultado-imc');
+${rutina}
 
-  btnCalcular.addEventListener('click', () => {
-    const peso = parseFloat(inputPeso.value);
-    const alturaCm = parseFloat(inputAltura.value);
+<strong style="color:var(--primary);">TIEMPOS DE DESCANSO:</strong>
+${descanso}
 
-    if (isNaN(peso) || isNaN(alturaCm) || peso <= 0 || alturaCm <= 0) {
-      divResultado.style.color = 'rgb(255, 107, 107)';
-      divResultado.innerHTML = 'Por favor, introduce valores válidos.';
-      return;
-    }
-
-    const alturaM = alturaCm / 100;
-    const imc = peso / (alturaM * alturaM);
+<strong style="color:var(--primary);">CONSEJOS PARA TI:</strong>
+- ${consejoNivel}
+- ${biometriaInfo}
+    `;
     
-    let categoria = '';
-    let color = '';
-
-    if (imc < 18.5) {
-      categoria = 'Bajo peso. ¡Toca comer más y levantar hierro!';
-      color = 'rgb(255, 204, 0)';
-    } else if (imc < 25) {
-      categoria = 'Peso normal. ¡Sigue manteniendo ese ritmo!';
-      color = 'rgb(76, 175, 80)';
-    } else if (imc < 30) {
-      categoria = 'Sobrepeso. Perfecto para transformarlo en músculo puro.';
-      color = 'rgb(255, 152, 0)';
-    } else {
-      categoria = 'Obesidad. El mejor día para empezar el cambio es hoy.';
-      color = 'rgb(255, 87, 34)';
-    }
-
-    divResultado.style.color = color;
-    divResultado.innerHTML = `Tu IMC es <strong>${imc.toFixed(1)}</strong><br><span style="font-size: 0.9rem; color: rgb(170, 170, 170);">${categoria}</span>`;
+    divResultado.innerHTML = resultadoHTML;
   });
 });
