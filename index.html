@@ -1,61 +1,111 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>FitForge · Entrenador Personal</title>
-  <link rel="stylesheet" href="assets/styles.css"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IronCore Fitness | Gimnasio Profesional</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="topbar">
-    <div class="row">
-      <div class="brand">
-        <b>FitForge</b>
-        <span>Planificador de Entrenamientos</span>
-      </div>
-      <nav class="nav">
-        <a class="btn" href="feed.html">Ejercicios</a>
-        <a class="btn" href="pista.htm">Evaluación</a>
-        <a class="btn primary" href="lab.html">Crear Rutina</a>
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">IRON<span class="highlight">CORE</span></div>
+      <nav class="nav-links">
+        <span class="nav-item" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Inicio</span>
+        <span class="nav-item" onclick="document.querySelector('.seccion-clases').scrollIntoView({behavior: 'smooth'})">Clases</span>
+        <span class="nav-item" onclick="document.querySelector('.seccion-herramientas').scrollIntoView({behavior: 'smooth'})">Calculadora</span>
+        <span class="nav-item" onclick="document.querySelector('.seccion-tarifas').scrollIntoView({behavior: 'smooth'})">Tarifas</span>
       </nav>
     </div>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <h1>Forja tu mejor versión 🏋️‍♂️</h1>
-      <p>
-        Bienvenido a FitForge. Selecciona tu disciplina, aprende la técnica correcta en el feed, evalúa tu nivel físico actual y diseña una rutina semanal perfecta lista para llevar al gimnasio.
-      </p>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>NO HAY EXCUSAS. <br>SOLO RESULTADOS.</h1>
+      <p>Equipamiento premium, entrenadores de élite y abierto todo el día. Únete a la revolución del fitness.</p>
+      <button class="btn-primary" onclick="document.querySelector('.seccion-tarifas').scrollIntoView({behavior: 'smooth'})">Apúntate Hoy</button>
+    </div>
+  </section>
 
-      <div class="chips">
-        <span class="chip">💪 Fuerza</span>
-        <span class="chip">🏃 Cardio</span>
-        <span class="chip">🧘 Yoga</span>
-        <span class="chip">⬇️ Exportar Rutina</span>
+  <section class="section seccion-clases">
+    <h2>Nuestras <span class="highlight">Clases</span></h2>
+    <div class="grid">
+      <div class="card">
+        <h3>🏋️ Cross-Training</h3>
+        <p>Entrenamientos de alta intensidad que combinan fuerza y cardio. Prepárate para sudar.</p>
       </div>
-
-      <div class="actions">
-        <a class="btn primary" href="feed.html">Ver Ejercicios</a>
-        <a class="btn" href="pista.htm">Hacer Evaluación</a>
-        <a class="btn" href="lab.html">Diseñar Rutina</a>
+      <div class="card">
+        <h3>🚴 Spinning Zone</h3>
+        <p>Pedalea al ritmo de la música con nuestros instructores en una sala inmersiva.</p>
       </div>
-    </section>
-
-    <hr class="sep"/>
-
-    <section class="grid2">
-      <div class="panel">
-        <h3>¿Cómo funciona?</h3>
-        <p>
-          1. <b>Ejercicios (Feed):</b> Elige tu objetivo (Fuerza, Cardio o Yoga) y lee los tips de técnica.<br/>
-          2. <b>Evaluación (Pistas):</b> Responde a las preguntas sobre tu estado físico.<br/>
-          3. <b>Creador (Lab):</b> Añade tus series, repeticiones y descansos, y descarga tu tabla de entrenamiento.
-        </p>
+      <div class="card">
+        <h3>🥊 Boxeo</h3>
+        <p>Libera estrés y mejora tu agilidad, fuerza y resistencia técnica en el ring.</p>
       </div>
-    </section>
-  </main>
+      <div class="card">
+        <h3>🧘 Yoga & Core</h3>
+        <p>Mejora tu flexibilidad, postura y fuerza abdominal en un ambiente relajado.</p>
+      </div>
+    </div>
+  </section>
 
-  <script src="assets/app.js"></script>
+  <section class="section bg-darker seccion-herramientas">
+    <h2>Calcula tu <span class="highlight">IMC</span></h2>
+    <p class="text-center">Descubre tu Índice de Masa Corporal y da el primer paso hacia tu objetivo.</p>
+    <div class="calculator-box">
+      <div class="input-group">
+        <label>Peso (kg)</label>
+        <input type="number" class="input-peso" placeholder="Ej: 75">
+      </div>
+      <div class="input-group">
+        <label>Altura (cm)</label>
+        <input type="number" class="input-altura" placeholder="Ej: 175">
+      </div>
+      <button class="btn-primary btn-calcular" style="width: 100%;">Calcular Resultados</button>
+      <div class="resultado-imc resultado"></div>
+    </div>
+  </section>
+
+  <section class="section seccion-tarifas">
+    <h2>Nuestras <span class="highlight">Tarifas</span></h2>
+    <div class="grid pricing-grid">
+      <div class="pricing-card">
+        <h3>Pase de Día</h3>
+        <div class="price">10€<span>/día</span></div>
+        <ul>
+          <li>Acceso a sala fitness</li>
+          <li>Vestuarios y duchas</li>
+        </ul>
+        <button class="btn-secondary">Comprar Pase</button>
+      </div>
+      <div class="pricing-card popular">
+        <div class="badge">MÁS POPULAR</div>
+        <h3>Mensual PRO</h3>
+        <div class="price">39€<span>/mes</span></div>
+        <ul>
+          <li>Acceso ilimitado</li>
+          <li>Todas las clases dirigidas</li>
+          <li>App de entrenamiento</li>
+        </ul>
+        <button class="btn-primary">Únete Ahora</button>
+      </div>
+      <div class="pricing-card">
+        <h3>Anual VIP</h3>
+        <div class="price">399€<span>/año</span></div>
+        <ul>
+          <li>Todo lo del plan PRO</li>
+          <li>Entrenador Personal</li>
+          <li>Toalla gratis</li>
+        </ul>
+        <button class="btn-secondary">Ahorrar un 15%</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2026 IronCore Fitness. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
