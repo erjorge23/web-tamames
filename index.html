@@ -13,17 +13,35 @@
       <nav class="nav-links">
         <span class="nav-item" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Inicio</span>
         <span class="nav-item" onclick="document.querySelector('.seccion-clases').scrollIntoView({behavior: 'smooth'})">Clases</span>
-        <span class="nav-item" onclick="document.querySelector('.seccion-herramientas').scrollIntoView({behavior: 'smooth'})">Calculadora</span>
+        <span class="nav-item" onclick="document.querySelector('.seccion-rutinas').scrollIntoView({behavior: 'smooth'})">Tu Rutina</span>
         <span class="nav-item" onclick="document.querySelector('.seccion-tarifas').scrollIntoView({behavior: 'smooth'})">Tarifas</span>
+        <button class="btn-secondary btn-login" onclick="abrirModal()">Iniciar Sesión</button>
       </nav>
     </div>
   </header>
+
+  <div id="modalLogin" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal()">&times;</span>
+      <h2 style="margin-top: 0;">Área de <span class="highlight">Socios</span></h2>
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" placeholder="tu@email.com">
+      </div>
+      <div class="input-group">
+        <label>Contraseña</label>
+        <input type="password" placeholder="********">
+      </div>
+      <button class="btn-primary" style="width:100%; margin-top: 10px;">Entrar a mi cuenta</button>
+      <p class="text-center" style="margin-top:1.5rem; font-size:0.9rem">¿Aún no eres miembro? <a href="#tarifas" style="color:var(--primary)" onclick="cerrarModal()">Regístrate gratis</a></p>
+    </div>
+  </div>
 
   <section class="hero">
     <div class="hero-content">
       <h1>NO HAY EXCUSAS. <br>SOLO RESULTADOS.</h1>
       <p>Equipamiento premium, entrenadores de élite y abierto todo el día. Únete a la revolución del fitness.</p>
-      <button class="btn-primary" onclick="document.querySelector('.seccion-tarifas').scrollIntoView({behavior: 'smooth'})">Apúntate Hoy</button>
+      <button class="btn-primary" onclick="document.querySelector('.seccion-tarifas').scrollIntoView({behavior: 'smooth'})">Prueba 3 Días Gratis</button>
     </div>
   </section>
 
@@ -49,9 +67,80 @@
     </div>
   </section>
 
-  <section class="section bg-darker seccion-herramientas">
+  <section class="section bg-darker seccion-rutinas">
+    <h2>Tu Rutina <span class="highlight">A Medida</span></h2>
+    <p class="text-center">Dinos qué quieres entrenar hoy y te calcularemos los ejercicios exactos que necesitas.</p>
+    <div class="grid" style="align-items: flex-start;">
+      <div class="calculator-box" style="margin: 0; width: 100%;">
+        <div class="input-group">
+          <label>Grupo Muscular a Entrenar</label>
+          <select id="grupo-muscular" class="input-select">
+            <option value="pecho">Pecho y Tríceps</option>
+            <option value="espalda">Espalda y Bíceps</option>
+            <option value="piernas">Piernas y Glúteos</option>
+            <option value="fullbody">Cuerpo Completo (Full Body)</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Tipo de Entrenamiento</label>
+          <select id="tipo-entreno" class="input-select">
+            <option value="fuerza">Fuerza Bruta (Pocas reps, mucho peso)</option>
+            <option value="hipertrofia">Hipertrofia (Ganar masa muscular)</option>
+            <option value="resistencia">Resistencia y Quema de Grasa</option>
+          </select>
+        </div>
+        <button id="btn-rutina" class="btn-primary" style="width: 100%;">Generar Mis Ejercicios</button>
+      </div>
+      
+      <div class="calculator-box" style="margin: 0; width: 100%; background: rgb(15, 15, 15); border: 1px solid rgb(51, 51, 51);">
+        <h3 style="margin-top:0; color: var(--primary);">Tus Ejercicios:</h3>
+        <div id="resultado-rutina" style="color: var(--text-main); font-family: monospace; white-space: pre-wrap; font-size: 1.05rem; line-height: 1.8;">Selecciona tus opciones en la izquierda y pulsa el botón para generar tu entrenamiento aquí.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section seccion-tarifas">
+    <h2>Nuestras <span class="highlight">Tarifas</span></h2>
+    <div class="grid pricing-grid">
+      <div class="pricing-card" style="border-color: var(--primary);">
+        <div class="badge" style="background: rgb(76, 175, 80);">NUEVOS SOCIOS</div>
+        <h3>Prueba Gratuita</h3>
+        <div class="price">0€<span>/3 días</span></div>
+        <ul>
+          <li>✔️ Acceso a sala fitness</li>
+          <li>✔️ 1 Clase dirigida de prueba</li>
+          <li>✔️ Evaluación física inicial</li>
+        </ul>
+        <button class="btn-secondary" style="border-color: rgb(76, 175, 80); color: rgb(76, 175, 80);">Comenzar Gratis</button>
+      </div>
+      
+      <div class="pricing-card popular">
+        <div class="badge">MÁS POPULAR</div>
+        <h3>Mensual PRO</h3>
+        <div class="price">39€<span>/mes</span></div>
+        <ul>
+          <li>✔️ Acceso ilimitado 24/7</li>
+          <li>✔️ Todas las clases dirigidas</li>
+          <li>✔️ App de entrenamiento</li>
+        </ul>
+        <button class="btn-primary">Únete Ahora</button>
+      </div>
+      
+      <div class="pricing-card">
+        <h3>Anual VIP</h3>
+        <div class="price">399€<span>/año</span></div>
+        <ul>
+          <li>✔️ Todo lo del plan PRO</li>
+          <li>✔️ Entrenador Personal (2/mes)</li>
+          <li>✔️ Toalla y Taquilla gratis</li>
+        </ul>
+        <button class="btn-secondary">Ahorrar un 15%</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-darker seccion-herramientas" style="padding-top: 2rem;">
     <h2>Calcula tu <span class="highlight">IMC</span></h2>
-    <p class="text-center">Descubre tu Índice de Masa Corporal y da el primer paso hacia tu objetivo.</p>
     <div class="calculator-box">
       <div class="input-group">
         <label>Peso (kg)</label>
@@ -61,44 +150,8 @@
         <label>Altura (cm)</label>
         <input type="number" class="input-altura" placeholder="Ej: 175">
       </div>
-      <button class="btn-primary btn-calcular" style="width: 100%;">Calcular Resultados</button>
+      <button class="btn-primary btn-calcular" style="width: 100%;">Calcular IMC</button>
       <div class="resultado-imc resultado"></div>
-    </div>
-  </section>
-
-  <section class="section seccion-tarifas">
-    <h2>Nuestras <span class="highlight">Tarifas</span></h2>
-    <div class="grid pricing-grid">
-      <div class="pricing-card">
-        <h3>Pase de Día</h3>
-        <div class="price">10€<span>/día</span></div>
-        <ul>
-          <li>Acceso a sala fitness</li>
-          <li>Vestuarios y duchas</li>
-        </ul>
-        <button class="btn-secondary">Comprar Pase</button>
-      </div>
-      <div class="pricing-card popular">
-        <div class="badge">MÁS POPULAR</div>
-        <h3>Mensual PRO</h3>
-        <div class="price">39€<span>/mes</span></div>
-        <ul>
-          <li>Acceso ilimitado</li>
-          <li>Todas las clases dirigidas</li>
-          <li>App de entrenamiento</li>
-        </ul>
-        <button class="btn-primary">Únete Ahora</button>
-      </div>
-      <div class="pricing-card">
-        <h3>Anual VIP</h3>
-        <div class="price">399€<span>/año</span></div>
-        <ul>
-          <li>Todo lo del plan PRO</li>
-          <li>Entrenador Personal</li>
-          <li>Toalla gratis</li>
-        </ul>
-        <button class="btn-secondary">Ahorrar un 15%</button>
-      </div>
     </div>
   </section>
 
